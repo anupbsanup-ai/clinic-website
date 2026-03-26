@@ -5,6 +5,120 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, 
 
 const PER_PAGE = 8;
 
+// ── Bookings Panel ────────────────────────────────────────────────────────────
+function BookingsPanel({ bookings, loading }: { bookings: Booking[]; loading: boolean }) {
+  const [filter, setFilter] = useState<"all" | "upcoming" | "today">("all");
+  const today = new Date().toISOString().split("T")[0];
+
+  const filtered = bookings.filter((b) => {
+    if (filter === "today") return b.date === today;
+    if (filter === "upcoming") return b.date >= today;
+    return true;
+  });
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-bold text-white">Patient Bookings</h2>
+        <div className="flex gap-2">
+          {(["all", "today", "upcoming"] as const).map((f) => (
+            <button key={f} onClick={() => setFilter(f)}
+              className={`px-4 py-1.5 rounded-lg text-xs font-semibold capitalize transition ${filter === f ? "bg-teal-500/20 text-teal-400 border border-teal-500/30" : "text-white/30 bg-white/5 hover:text-white"}`}>
+              {f}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white/3 border border-white/10 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-6 gap-3 px-6 py-3 border-b border-white/10 text-xs font-semibold text-white/30 uppercase tracking-widest">
+          <span>Patient</span><span>Phone</span><span>Doctor</span><span>Date</span><span>Time</span><span className="text-right">Payment</span>
+        </div>
+        {loading ? (
+          <div className="text-center py-16 text-white/30">Loading bookings...</div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-16 text-white/30">No bookings found</div>
+        ) : (
+          filtered.map((b) => (
+            <div key={b._id} className="grid grid-cols-6 gap-3 px-6 py-4 border-b border-white/5 hover:bg-white/3 transition group">
+              <p className="text-white font-semibold text-sm truncate">{b.patientName || "—"}</p>
+              <a href={`tel:${b.patientPhone}`} className="text-teal-400 text-sm hover:underline truncate">{b.patientPhone || "—"}</a>
+              <p className="text-white/60 text-sm truncate">{b.doctorId?.name || "—"}</p>
+              <p className="text-white/60 text-sm">{b.date}</p>
+              <p className="text-white/60 text-sm">{b.time}</p>
+              <div className="flex justify-end">
+                <span className={`text-xs font-semibold px-2 py-1 rounded-lg ${
+                  b.paymentStatus === "paid" ? "bg-green-500/15 text-green-400" :
+                  b.paymentStatus === "pending" ? "bg-yellow-500/15 text-yellow-400" :
+                  "bg-white/5 text-white/30"
+                }`}>{b.paymentStatus || "free"}</span>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+      {!loading && (
+        <p className="text-white/20 text-xs text-center">
+          Showing {filtered.length} booking{filtered.length !== 1 ? "s" : ""} · Connect backend to see live data
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ── Doctors Panel ─────────────────────────────────────────────────────────────
+function DoctorsPanel({ doctors, loading }: { doctors: Doctor[]; loading: boolean }) {
+  const seedDoctors = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/doctors/seed`, { method: "POST" });
+      const data = await res.json();
+      alert(data.message || "Seeded!");
+      window.location.reload();
+    } catch { alert("Could not reach backend — deploy backend first."); }
+  };
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-bold text-white">Doctors</h2>
+        <button onClick={seedDoctors}
+          className="px-4 py-2 rounded-xl text-sm font-semibold text-white transition"
+          style={{ background: "linear-gradient(135deg,#0d9488,#0ea5e9)" }}>
+          + Seed Sample Doctors
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="text-center py-16 text-white/30">Loading doctors...</div>
+      ) : doctors.length === 0 ? (
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-10 text-center">
+          <p className="text-white/40 mb-2">No doctors found in the database.</p>
+          <p className="text-white/20 text-sm">Connect backend and click &ldquo;Seed Sample Doctors&rdquo; to get started.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {doctors.map((doc) => (
+            <div key={doc._id} className="bg-white/5 border border-white/10 rounded-2xl p-5">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-white">{doc.name}</h3>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${doc.active ? "bg-green-500/15 text-green-400" : "bg-red-500/15 text-red-400"}`}>
+                  {doc.active ? "Active" : "Inactive"}
+                </span>
+              </div>
+              <p className="text-teal-400 text-sm mb-1">{doc.specialty}</p>
+              <p className="text-white/40 text-xs mb-3">{doc.qualifications} · {doc.experience} yrs</p>
+              <div className="flex items-center justify-between">
+                <span className="text-white font-bold">₹{doc.fee}</span>
+                <span className="text-white/30 text-xs">{doc.availableDays?.length || 0} days/week</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 const DEFAULT_CONTENT = {
   announcement: "Limited Appointments Available Today — Only a few slots remaining. Book now!",
   phone: "+91 91649 93469",
@@ -150,6 +264,18 @@ interface Lead {
   message: string; source: string; createdAt: string;
 }
 
+interface Booking {
+  _id: string; date: string; time: string; booked: boolean;
+  patientName: string; patientPhone: string; paymentStatus: string;
+  doctorId: { _id: string; name: string; specialty: string } | null;
+  createdAt: string;
+}
+
+interface Doctor {
+  _id: string; name: string; specialty: string; qualifications: string;
+  fee: number; experience: number; active: boolean; availableDays: string[];
+}
+
 function usePagination(total: number, perPage: number, current: number) {
   const totalPages = Math.ceil(total / perPage);
   const pages: (number | "...")[] = [];
@@ -186,16 +312,32 @@ function buildSourceData(leads: Lead[]) {
 
 export default function AdminPage() {
   const [leads, setLeads] = useState<Lead[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
+  const [bookingsLoading, setBookingsLoading] = useState(true);
+  const [doctorsLoading, setDoctorsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [tab, setTab] = useState<"leads" | "analytics" | "content">("leads");
+  const [tab, setTab] = useState<"leads" | "analytics" | "bookings" | "doctors" | "content">("leads");
 
   useEffect(() => {
     fetch(`${API_URL}/api/leads`)
       .then((r) => r.json())
-      .then((data) => { setLeads(data); setLoading(false); })
+      .then((data) => { setLeads(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
+
+    // Fetch all booked slots
+    fetch(`${API_URL}/api/slots/all-bookings`)
+      .then((r) => r.json())
+      .then((data) => { setBookings(Array.isArray(data) ? data : []); setBookingsLoading(false); })
+      .catch(() => setBookingsLoading(false));
+
+    // Fetch doctors
+    fetch(`${API_URL}/api/doctors`)
+      .then((r) => r.json())
+      .then((data) => { setDoctors(Array.isArray(data) ? data : []); setDoctorsLoading(false); })
+      .catch(() => setDoctorsLoading(false));
   }, []);
 
   const filtered = leads.filter(
@@ -230,9 +372,9 @@ export default function AdminPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
             { label: "Total Leads", value: leads.length, color: "#0d9488" },
-            { label: "Today", value: todayCount, color: "#0ea5e9" },
-            { label: "This Week", value: weekCount, color: "#8b5cf6" },
-            { label: "Sources", value: sourceData.length, color: "#f59e0b" },
+            { label: "Bookings", value: bookings.length, color: "#0ea5e9" },
+            { label: "Today's Leads", value: todayCount, color: "#8b5cf6" },
+            { label: "Doctors", value: doctors.length, color: "#f59e0b" },
           ].map((s) => (
             <div key={s.label} className="bg-white/5 border border-white/10 rounded-2xl p-5">
               <p className="text-white/40 text-xs uppercase tracking-widest mb-2">{s.label}</p>
@@ -242,23 +384,33 @@ export default function AdminPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
-          {(["leads", "analytics", "content"] as const).map((t) => (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {([
+            { key: "leads",     label: "📋 Leads" },
+            { key: "bookings",  label: "📅 Bookings" },
+            { key: "doctors",   label: "👨‍⚕️ Doctors" },
+            { key: "analytics", label: "📊 Analytics" },
+            { key: "content",   label: "✏️ Content" },
+          ] as const).map(({ key, label }) => (
             <button
-              key={t}
-              onClick={() => setTab(t)}
-              className={`px-5 py-2 rounded-xl text-sm font-semibold capitalize transition ${
-                tab === t ? "text-white" : "text-white/40 bg-white/5 hover:bg-white/10"
+              key={key}
+              onClick={() => setTab(key)}
+              className={`px-5 py-2 rounded-xl text-sm font-semibold transition ${
+                tab === key ? "text-white" : "text-white/40 bg-white/5 hover:bg-white/10"
               }`}
-              style={tab === t ? { background: "linear-gradient(135deg,#0d9488,#0ea5e9)" } : {}}
+              style={tab === key ? { background: "linear-gradient(135deg,#0d9488,#0ea5e9)" } : {}}
             >
-              {t === "content" ? "✏️ Content" : t}
+              {label}
             </button>
           ))}
         </div>
 
         {tab === "content" ? (
           <ContentEditor />
+        ) : tab === "bookings" ? (
+          <BookingsPanel bookings={bookings} loading={bookingsLoading} />
+        ) : tab === "doctors" ? (
+          <DoctorsPanel doctors={doctors} loading={doctorsLoading} />
         ) : tab === "analytics" ? (
           <div className="space-y-6">
             {/* Area chart */}
