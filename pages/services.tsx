@@ -4,47 +4,17 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import AnimatedSection from "../components/AnimatedSection";
+import { clinicConfig, waLink } from "../config/clinic";
 
-const services = [
-  {
-    title: "General Health Consultation",
-    desc: "Expert advice for all general health concerns, day-to-day illnesses, and follow-up visits. Dr. Venkat Rao ensures every patient gets personalised attention.",
-    img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80",
-  },
-  {
-    title: "Fever & Infection Treatment",
-    desc: "Prompt diagnosis and effective treatment for viral and bacterial infections, typhoid, malaria, and other fever-related conditions.",
-    img: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80",
-  },
-  {
-    title: "Cold & Cough Treatment",
-    desc: "Relief-focused care for respiratory infections, seasonal cold, cough, sore throat, and breathing-related complaints.",
-    img: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&q=80",
-  },
-  {
-    title: "Blood Pressure & Diabetes Check",
-    desc: "Regular monitoring, medication review, and management of blood pressure and blood sugar levels for long-term wellness.",
-    img: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&q=80",
-  },
-  {
-    title: "Preventive Health Checkups",
-    desc: "Routine screenings and health assessments to detect issues early and keep you and your family in good health.",
-    img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80",
-  },
-  {
-    title: "Basic Medical Advice & Treatment",
-    desc: "Affordable, practical medical guidance for minor injuries, headaches, stomach issues, body pain, and common ailments.",
-    img: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80",
-  },
-];
+const services = clinicConfig.services;
 
 export default function Services() {
   return (
     <>
       <Head>
-        <title>Our Services — Sanjeevani Clinic, Malleshwaram Bangalore</title>
-        <meta name="description" content="Sanjeevani Clinic offers General Health Consultation, Fever & Infection Treatment, BP & Diabetes Management, Preventive Checkups and more in Malleshwaram, Bangalore." />
-        <link rel="canonical" href="https://clinic-website-sigma-ten.vercel.app/services" />
+        <title>Our Services — {clinicConfig.name}, {clinicConfig.city}</title>
+        <meta name="description" content={`${clinicConfig.name} offers General Health Consultation, Fever & Infection Treatment, BP & Diabetes Management, Preventive Checkups and more in ${clinicConfig.city}.`} />
+        <link rel="canonical" href={`${clinicConfig.url}/services`} />
       </Head>
 
       <Navbar />
@@ -65,8 +35,8 @@ export default function Services() {
       <section className="py-14 px-6 bg-white text-center">
         <div className="max-w-2xl mx-auto">
           <p className="text-gray-600 text-lg leading-relaxed">
-            Sanjeevani Clinic focuses on General Physician care, Family Medicine, Preventive Health, and Quick Consultation —
-            providing affordable, quality treatment for patients of all ages in Malleshwaram, Bangalore.
+            {clinicConfig.name} focuses on General Physician care, Family Medicine, Preventive Health, and Quick Consultation —
+            providing affordable, quality treatment for patients of all ages in {clinicConfig.city}.
           </p>
         </div>
       </section>
@@ -85,7 +55,7 @@ export default function Services() {
                   <h3 className="font-bold text-gray-800 text-base mb-2">{s.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{s.desc}</p>
                   <a
-                    href={`https://wa.me/919164993469?text=I want to book an appointment for ${encodeURIComponent(s.title)}`}
+                    href={waLink(`I want to book an appointment for ${s.title} at ${clinicConfig.name}`)}
                     target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-teal-600 font-semibold text-sm hover:gap-2 transition-all"
                   >
@@ -103,13 +73,13 @@ export default function Services() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-teal-600 font-semibold text-sm uppercase tracking-wider mb-2">Why Choose Us</p>
-            <h2 className="text-4xl font-extrabold text-gray-800">Why Choose Sanjeevani Clinic?</h2>
+            <h2 className="text-4xl font-extrabold text-gray-800">Why Choose {clinicConfig.name}?</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "15+ Years Experience", desc: "Dr. P Venkat Rao brings over 15 years of hands-on experience in general medicine and family care." },
+              { title: `${clinicConfig.doctor.experience}+ Years Experience`, desc: `${clinicConfig.doctor.name} brings over ${clinicConfig.doctor.experience} years of hands-on experience in general medicine and family care.` },
               { title: "Affordable Consultation", desc: "Quality healthcare at fair, transparent prices — no hidden charges, no unnecessary tests." },
-              { title: "Convenient Location", desc: "Located in Malleshwaram, easily accessible from Vyalikaval, HN Layout, and surrounding areas." },
+              { title: "Convenient Location", desc: `Located in ${clinicConfig.city}, easily accessible from Vyalikaval, HN Layout, and surrounding areas.` },
             ].map((item) => (
               <div key={item.title} className="text-center bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:shadow-md transition">
                 <div className="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center" style={{ background: "linear-gradient(135deg,#0d9488,#0ea5e9)" }}>
@@ -131,14 +101,14 @@ export default function Services() {
         <div className="relative text-center text-white max-w-xl mx-auto">
           <h2 className="text-4xl font-extrabold mb-3">Need a Consultation?</h2>
           <p className="text-blue-300 mb-2 text-lg">Skip the wait — book directly on WhatsApp</p>
-          <p className="text-blue-400 text-sm mb-8">Open All Days · 11:00 AM – 5:00 PM · +91 91649 93469</p>
+          <p className="text-blue-400 text-sm mb-8">{clinicConfig.hours} · {clinicConfig.phone}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/919164993469?text=I want to book an appointment at Sanjeevani Clinic"
+            <a href={waLink()}
               target="_blank" rel="noopener noreferrer"
               className="btn-brand inline-flex items-center justify-center gap-3 text-white font-bold text-lg px-10 py-4 rounded-2xl shadow-xl">
               Book on WhatsApp
             </a>
-            <a href="tel:+919164993469"
+            <a href={`tel:${clinicConfig.phoneRaw}`}
               className="inline-flex items-center justify-center gap-3 bg-white/10 border border-white/20 text-white font-semibold text-lg px-10 py-4 rounded-2xl hover:bg-white/20 transition">
               Call Now
             </a>

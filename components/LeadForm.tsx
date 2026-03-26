@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "../lib/api";
+import { clinicConfig, waLink } from "../config/clinic";
 
 export default function LeadForm() {
   const [form, setForm] = useState({ name: "", phone: "", message: "" });
@@ -26,10 +27,7 @@ export default function LeadForm() {
 
     // Always redirect to WhatsApp (even if backend fails)
     const whatsappMessage = `Hi, my name is ${form.name}. My phone is ${form.phone}. ${form.message}`;
-    window.open(
-      `https://wa.me/919164993469?text=${encodeURIComponent(whatsappMessage)}`,
-      "_blank"
-    );
+    window.open(waLink(whatsappMessage), "_blank");
 
     setStatus("done");
     setForm({ name: "", phone: "", message: "" });

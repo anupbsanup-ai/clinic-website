@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import { API_URL } from "../lib/api";
+import { clinicConfig, waLink } from "../config/clinic";
 
 // ── Static fallback (shown when backend is not connected) ─────────────────────
 const STATIC_DOCTORS = [
@@ -121,7 +122,7 @@ export default function BookPage() {
       } catch { /* silent — still open WhatsApp */ }
     }
 
-    window.open(`https://wa.me/919164993469?text=${encodeURIComponent(msg)}`, "_blank");
+    window.open(waLink(msg), "_blank");
     setSubmitting(false);
     setStep("success");
   }

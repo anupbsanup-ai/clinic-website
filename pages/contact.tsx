@@ -6,11 +6,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import AnimatedSection from "../components/AnimatedSection";
+import { clinicConfig, waLink, mapEmbed, mapLink } from "../config/clinic";
 
-const PHONE = "+91 91649 93469";
-const PHONE_RAW = "+919164993469";
-const WA_NUM = "919164993469";
-const ADDRESS = "803, 11th Cross Road, Vyalikaval, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003";
+const { phone: PHONE, phoneRaw: PHONE_RAW, whatsapp: WA_NUM, address: ADDRESS, name: CLINIC_NAME, seo } = clinicConfig;
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", message: "" });
@@ -37,7 +35,7 @@ export default function Contact() {
     } else {
       // Always ensure the clinic sees the enquiry via WhatsApp
       const msg = `Hi, I have an enquiry.\n\nName: ${form.name}\nPhone: ${form.phone}\nMessage: ${form.message}`;
-      window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`, "_blank");
+      window.open(waLink(msg), "_blank");
       setStatus("success");
       setForm({ name: "", phone: "", message: "" });
     }
@@ -46,9 +44,9 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact Us — Sanjeevani Clinic, Malleshwaram Bangalore</title>
-        <meta name="description" content="Contact Sanjeevani Clinic in Malleshwaram, Bangalore. Call +91 91649 93469 or book via WhatsApp. Located at 803, 11th Cross Road, Vyalikaval, HN Layout." />
-        <link rel="canonical" href="https://clinic-website-sigma-ten.vercel.app/contact" />
+        <title>Contact Us — {CLINIC_NAME}</title>
+        <meta name="description" content={`Contact ${CLINIC_NAME}. Call ${PHONE} or book via WhatsApp. Located at ${ADDRESS}.`} />
+        <link rel="canonical" href={`${clinicConfig.url}/contact`} />
       </Head>
 
       <Navbar />
@@ -85,7 +83,7 @@ export default function Contact() {
             <a href={`tel:${PHONE_RAW}`} className="text-blue-600 font-semibold text-lg hover:underline block mb-1">
               {PHONE}
             </a>
-            <p className="text-gray-400 text-sm">All Days · 11:00 AM – 5:00 PM</p>
+            <p className="text-gray-400 text-sm">{clinicConfig.hours}</p>
           </div>
 
           {/* WhatsApp */}
@@ -98,7 +96,7 @@ export default function Contact() {
             <h3 className="font-bold text-gray-800 text-xl mb-2">WhatsApp</h3>
             <p className="text-gray-500 text-sm mb-4">Book instantly, get confirmed fast</p>
             <a
-              href={`https://wa.me/${WA_NUM}?text=I want to book an appointment at Sanjeevani Clinic`}
+              href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-brand inline-block text-white font-semibold px-6 py-2.5 rounded-full"
@@ -116,7 +114,7 @@ export default function Contact() {
               </svg>
             </div>
             <h3 className="font-bold text-gray-800 text-xl mb-2">Location</h3>
-            <p className="text-gray-600 text-sm leading-relaxed">803, 11th Cross Road,<br />Vyalikaval, HN Layout,<br />Malleshwaram, Bengaluru 560003</p>
+            <p className="text-gray-600 text-sm leading-relaxed">{ADDRESS}</p>
           </div>
         </div>
       </section>
@@ -207,7 +205,7 @@ export default function Contact() {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Find Us on the Map</h2>
             <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
               <iframe
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`}
+                src={mapEmbed()}
                 width="100%"
                 height="360"
                 style={{ border: 0 }}
@@ -218,7 +216,7 @@ export default function Contact() {
               />
             </div>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`}
+              href={mapLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-3 text-teal-600 font-medium text-sm hover:underline"
@@ -234,15 +232,7 @@ export default function Contact() {
           <div>
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Clinic Hours</h2>
             <div className="bg-white border border-gray-100 rounded-2xl shadow overflow-hidden">
-              {[
-                { day: "Monday", time: "11:00 AM – 5:00 PM", open: true },
-                { day: "Tuesday", time: "11:00 AM – 5:00 PM", open: true },
-                { day: "Wednesday", time: "11:00 AM – 5:00 PM", open: true },
-                { day: "Thursday", time: "11:00 AM – 5:00 PM", open: true },
-                { day: "Friday", time: "11:00 AM – 5:00 PM", open: true },
-                { day: "Saturday", time: "11:00 AM – 5:00 PM", open: true },
-                { day: "Sunday", time: "11:00 AM – 5:00 PM", open: true },
-              ].map((row, i) => (
+              {clinicConfig.schedule.map((row, i) => (
                 <div key={row.day} className={`flex justify-between items-center px-5 py-3 text-sm ${i % 2 === 0 ? "bg-white" : "bg-slate-50"}`}>
                   <span className="text-gray-700 font-medium">{row.day}</span>
                   <span className={`font-semibold ${row.open ? "text-green-600" : "text-red-400"}`}>{row.time}</span>
@@ -272,7 +262,7 @@ export default function Contact() {
           <h2 className="text-4xl font-extrabold mb-4">Book Your Appointment</h2>
           <p className="text-blue-200 mb-8 text-lg">Message us on WhatsApp — confirmed in minutes</p>
           <a
-            href={`https://wa.me/${WA_NUM}?text=I want to book an appointment at Sanjeevani Clinic`}
+            href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-brand inline-flex items-center gap-3 text-white font-bold text-lg px-10 py-4 rounded-2xl shadow-2xl"

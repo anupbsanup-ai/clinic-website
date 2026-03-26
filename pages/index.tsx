@@ -12,6 +12,7 @@ import LeadForm from "../components/LeadForm";
 import TestimonialsSection from "../components/TestimonialsColumns";
 import AppointmentPrompt from "../components/AppointmentPrompt";
 import { BackgroundPaths } from "../components/BackgroundPaths";
+import { clinicConfig, waLink } from "../config/clinic";
 
 
 const steps = [
@@ -56,9 +57,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Sanjeevani Clinic — Trusted Family Clinic in Malleshwaram, Bangalore</title>
-        <meta name="description" content="Sanjeevani Clinic in Malleshwaram, Bangalore. Dr. P Venkat Rao MBBS — 15+ years experience. Book same-day appointments via WhatsApp. Open all days 11am–5pm." />
-        <link rel="canonical" href="https://clinic-website-sigma-ten.vercel.app" />
+        <title>{clinicConfig.seo.title}</title>
+        <meta name="description" content={clinicConfig.seo.description} />
+        <link rel="canonical" href={clinicConfig.url} />
       </Head>
 
       <Navbar />
@@ -97,14 +98,14 @@ export default function Home() {
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4">
-              <a href="tel:+919164993469"
+              <a href={`tel:${clinicConfig.phoneRaw}`}
                 className="inline-flex items-center justify-center gap-3 bg-white text-blue-900 font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all">
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 Call Now
               </a>
-              <a href="https://wa.me/919164993469?text=I want to book an appointment at Sanjeevani Clinic" target="_blank" rel="noopener noreferrer"
+              <a href={waLink()} target="_blank" rel="noopener noreferrer"
                 className="btn-brand group inline-flex items-center justify-center gap-3 text-white font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-teal-500/30">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-white flex-shrink-0">
                   <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.477 2.027 7.784L0 32l8.437-2.006A15.94 15.94 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm7.293 19.346c-.4-.2-2.362-1.166-2.728-1.3-.366-.133-.633-.2-.9.2s-1.033 1.3-1.266 1.566c-.233.267-.466.3-.866.1-.4-.2-1.69-.623-3.22-1.986-1.19-1.062-1.993-2.374-2.227-2.774-.234-.4-.025-.616.175-.815.18-.179.4-.467.6-.7.2-.234.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.656-.674-.9-.686l-.767-.013c-.267 0-.7.1-1.067.5S8 12.667 8 14.633c0 1.967 1.434 3.867 1.634 4.134.2.267 2.82 4.3 6.833 6.033.954.412 1.698.658 2.278.843.957.305 1.828.262 2.517.159.768-.115 2.362-.966 2.695-1.9.334-.933.334-1.733.234-1.9-.1-.166-.366-.266-.766-.466z" />
@@ -141,17 +142,17 @@ export default function Home() {
                     <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" /> Accepting Patients Today
                   </div>
                 </div>
-                <h3 className="text-white font-bold text-xl">Dr. P Venkat Rao</h3>
-                <p className="text-teal-300 text-sm font-medium mb-4">MBBS · General Physician</p>
+                <h3 className="text-white font-bold text-xl">{clinicConfig.doctor.name}</h3>
+                <p className="text-teal-300 text-sm font-medium mb-4">{clinicConfig.doctor.qualifications} · {clinicConfig.doctor.specialty}</p>
                 <div className="grid grid-cols-3 gap-3 mb-5">
-                  {[["15+","Years"],["5K+","Patients"],["4.9★","Rating"]].map(([v,l]) => (
+                  {[[`${clinicConfig.doctor.experience}+`,"Years"],[clinicConfig.doctor.patients,"Patients"],[clinicConfig.doctor.rating,"Rating"]].map(([v,l]) => (
                     <div key={l} className="bg-white/8 rounded-xl p-3 text-center border border-white/10">
                       <p className="text-white font-bold">{v}</p>
                       <p className="text-blue-300 text-xs mt-0.5">{l}</p>
                     </div>
                   ))}
                 </div>
-                <a href="https://wa.me/919164993469?text=I want to book an appointment" target="_blank" rel="noopener noreferrer"
+                <a href={waLink()} target="_blank" rel="noopener noreferrer"
                   className="btn-brand block w-full text-center text-white font-bold py-3 rounded-xl">
                   Book Appointment
                 </a>
@@ -206,12 +207,7 @@ export default function Home() {
       {/* ── STATS ── */}
       <section className="bg-gradient-to-r from-[#0a1f44] to-blue-900 text-white py-16">
         <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { end: 15, suffix: "+", label: "Years Experience" },
-            { end: 5000, suffix: "+", label: "Patients Treated" },
-            { end: 20, suffix: "+", label: "Services Offered" },
-            { end: 98, suffix: "%", label: "Satisfaction Rate" },
-          ].map((s) => (
+          {clinicConfig.stats.map((s) => (
             <AnimatedSection key={s.label} direction="up">
               <p className="text-4xl md:text-5xl font-extrabold text-teal-300">
                 <AnimatedCounter end={s.end} suffix={s.suffix} />
@@ -275,18 +271,18 @@ export default function Home() {
 
           <AnimatedSection direction="right">
             <p className="text-teal-600 font-semibold text-sm uppercase tracking-widest mb-2">Meet the Expert</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2 leading-tight">Dr. P Venkat Rao</h2>
-            <p className="text-blue-700 font-semibold mb-2">MBBS — General Physician</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2 leading-tight">{clinicConfig.doctor.name}</h2>
+            <p className="text-blue-700 font-semibold mb-2">{clinicConfig.doctor.qualifications} — {clinicConfig.doctor.specialty}</p>
             <div className="flex flex-wrap gap-2 mb-6">
-              {["15 Yrs Experience","General Medicine","Diabetes Care","Family Medicine"].map(tag => (
+              {clinicConfig.doctor.tags.map(tag => (
                 <span key={tag} className="text-xs bg-teal-50 text-teal-700 border border-teal-200 px-3 py-1 rounded-full font-semibold">{tag}</span>
               ))}
             </div>
             <p className="text-gray-500 leading-relaxed mb-6 text-base">
-              With over 15 years of experience in general medicine, Dr. P Venkat Rao is dedicated to providing compassionate and effective healthcare solutions. He specializes in treating common illnesses, managing chronic conditions, and offering preventive healthcare guidance.
+              {clinicConfig.doctor.bio}
             </p>
             <div className="space-y-3 mb-8">
-              {["Treating common illnesses & infections", "Managing BP, diabetes & chronic conditions", "Preventive care & affordable consultations"].map((item) => (
+              {clinicConfig.doctor.skills.map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,7 +338,7 @@ export default function Home() {
             ))}
           </div>
           <AnimatedSection className="text-center mt-10">
-            <a href="https://wa.me/919164993469?text=I want to book an appointment at Sanjeevani Clinic" target="_blank" rel="noopener noreferrer"
+            <a href={waLink()} target="_blank" rel="noopener noreferrer"
               className="btn-brand inline-flex items-center gap-3 text-white font-bold px-8 py-3.5 rounded-2xl">
               Book Appointment on WhatsApp →
             </a>
@@ -374,7 +370,7 @@ export default function Home() {
             ))}
           </div>
           <AnimatedSection className="text-center mt-12">
-            <a href="https://wa.me/919164993469?text=I want to book an appointment" target="_blank" rel="noopener noreferrer"
+            <a href={waLink()} target="_blank" rel="noopener noreferrer"
               className="btn-brand inline-flex items-center gap-3 text-white font-bold text-lg px-10 py-4 rounded-2xl">
               Book Now on WhatsApp
             </a>
@@ -427,7 +423,7 @@ export default function Home() {
           </div>
           <AnimatedSection className="text-center mt-10">
             <p className="text-gray-500 mb-4">Still have questions?</p>
-            <a href="https://wa.me/919164993469?text=I have a question about the clinic" target="_blank" rel="noopener noreferrer"
+            <a href={waLink(`I have a question about ${clinicConfig.name}`)} target="_blank" rel="noopener noreferrer"
               className="btn-brand inline-flex items-center gap-2 text-white font-semibold px-7 py-3 rounded-xl">
               Ask on WhatsApp
             </a>
@@ -454,7 +450,7 @@ export default function Home() {
             </h2>
             <p className="text-blue-200 text-lg mb-10">Same-day appointments available. No queues. No waiting.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://wa.me/919164993469?text=I want to book an appointment" target="_blank" rel="noopener noreferrer"
+              <a href={waLink()} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 bg-white text-teal-700 font-bold text-lg px-10 py-4 rounded-2xl hover:bg-slate-50 transition hover:scale-105 shadow-2xl">
                 Book on WhatsApp
               </a>
@@ -479,7 +475,7 @@ export default function Home() {
 
       {/* ── STICKY BOTTOM CTA (mobile) ── */}
       <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-gray-200 px-4 py-3 flex gap-3 shadow-2xl">
-        <a href="https://wa.me/919164993469?text=I want a free consultation" target="_blank" rel="noopener noreferrer"
+        <a href={waLink()} target="_blank" rel="noopener noreferrer"
           className="flex-1 bg-green-500 text-white font-bold py-3 rounded-xl text-sm text-center flex items-center justify-center gap-2">
           Free Consultation
         </a>

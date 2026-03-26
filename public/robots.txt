@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /admin
+Disallow: /api/
+
+# Host
+Host: https://clinic-website-sigma-ten.vercel.app
+
+# Sitemaps
+Sitemap: https://clinic-website-sigma-ten.vercel.app/sitemap.xml
