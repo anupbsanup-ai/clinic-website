@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from "react";
 interface Props {
   end: number;
   suffix?: string;
-  duration?: number;
 }
 
-export default function AnimatedCounter({ end, suffix = "", duration = 2000 }: Props) {
+export default function AnimatedCounter({ end, suffix = "" }: Props) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -19,23 +18,25 @@ export default function AnimatedCounter({ end, suffix = "", duration = 2000 }: P
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
-          let startTime: number | null = null;
-          const step = (timestamp: number) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * end));
-            if (progress < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-          observer.disconnect();
+          let current = 0;
+          const duration = 1500;
+          const step = Math.ceil(end / (duration / 16));
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= end) {
+              setCount(end);
+              clearInterval(timer);
+            } else {
+              setCount(current);
+            }
+          }, 16);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.3 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [end, duration]);
+  }, [end]);
 
   return (
     <span ref={ref}>

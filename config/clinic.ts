@@ -121,7 +121,7 @@ export const clinicConfig = {
     description: "Dr. P Venkat Rao (MBBS) — 15+ years experience. Book same-day appointments via WhatsApp. Open all days 11am–5pm in Malleshwaram, Bangalore.",
     keywords:    "clinic in Malleshwaram, doctor near me, general physician in Bangalore, family clinic in Malleshwaram, Sanjeevani Clinic, Dr P Venkat Rao, Vyalikaval clinic, HN Layout doctor",
     ogImage:     "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=80",
-    geo: { lat: 13.0038, lng: 77.5671 },
+    geo: { lat: 13.0068, lng: 77.5679 },
   },
 
   // ── Branding colors (used inline where Tailwind can't dynamic class) ──────
@@ -138,7 +138,7 @@ export const waLink = (msg = "I want to book an appointment at " + clinicConfig.
   `https://wa.me/${clinicConfig.whatsapp}?text=${encodeURIComponent(msg)}`;
 
 export const mapEmbed = () =>
-  `https://maps.google.com/maps?q=${clinicConfig.seo.geo.lat},${clinicConfig.seo.geo.lng}&t=&z=17&ie=UTF8&iwloc=B&output=embed`;
+  `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.4!2d${clinicConfig.seo.geo.lng}!3d${clinicConfig.seo.geo.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s${encodeURIComponent(clinicConfig.address)}!5e0!3m2!1sen!2sin!4v1`;
 
 export const mapLink = () =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinicConfig.address)}`;

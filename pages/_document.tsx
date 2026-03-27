@@ -57,7 +57,13 @@ export default function Document() {
                 "longitude": seo.geo.lng,
               },
               "openingHours": ["Mo-Su 11:00-17:00"],
-              "medicalSpecialty": ["General Practice", "Family Medicine"],
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                "opens": "11:00",
+                "closes": "17:00",
+              },
+              "medicalSpecialty": "General Practice",
               "hasMap": `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
               "employee": {
                 "@type": "Physician",

@@ -222,16 +222,16 @@ export default function Contact() {
           {/* Map */}
           <div className="md:col-span-2">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Find Us on the Map</h2>
-            <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <div className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100" style={{ height: "400px" }}>
               <iframe
                 src={mapEmbed()}
                 width="100%"
-                height="360"
+                height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Sanjeevani Clinic Location — Malleshwaram, Bengaluru"
+                title={`${clinicConfig.name} Location — ${clinicConfig.city}`}
               />
             </div>
             <a
