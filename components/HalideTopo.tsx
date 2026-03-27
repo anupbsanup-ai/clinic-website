@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { waLink } from "../config/clinic";
+import { clinicConfig, waLink } from "../config/clinic";
 
 export default function HalideTopo() {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -52,7 +52,7 @@ export default function HalideTopo() {
           <span className="text-white/40 text-xs font-mono tracking-widest uppercase">Healthcare Clinic</span>
           <div className="text-right font-mono text-xs" style={{ color: "#0d9488" }}>
             <div>SPECIALIST: General Medicine</div>
-            <div>EXPERIENCE: 10+ Years</div>
+            <div>EXPERIENCE: {clinicConfig.doctor.experience}+ Years</div>
           </div>
         </div>
 
@@ -65,7 +65,7 @@ export default function HalideTopo() {
           </h2>
           <div className="flex justify-between items-end">
             <div className="font-mono text-xs text-white/30">
-              <p>[ ESTABLISHED 2014 ]</p>
+              <p>[ ESTABLISHED {clinicConfig.established} ]</p>
               <p>COMPASSIONATE · PROFESSIONAL · TRUSTED</p>
             </div>
             <a

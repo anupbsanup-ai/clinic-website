@@ -4,30 +4,33 @@ import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 
 const testimonials = [
-  { text: "The doctor was incredibly thorough. Diagnosed my issue in one visit after 3 other doctors missed it.", name: "Priya Sharma", role: "Patient since 2021", image: "https://randomuser.me/api/portraits/women/1.jpg" },
-  { text: "Booked via WhatsApp in 30 seconds. Got confirmed instantly. The whole experience was seamless.", name: "Rahul Mehta", role: "Patient since 2022", image: "https://randomuser.me/api/portraits/men/2.jpg" },
-  { text: "Very professional clinic. Clean, modern and the staff is incredibly helpful. Best in the city.", name: "Anita Kapoor", role: "Patient since 2020", image: "https://randomuser.me/api/portraits/women/3.jpg" },
-  { text: "My entire family comes here. The doctor takes time to explain everything clearly. Highly recommend.", name: "Suresh Iyer", role: "Patient since 2019", image: "https://randomuser.me/api/portraits/men/4.jpg" },
-  { text: "After years of visiting different clinics, I finally found one that actually cares.", name: "Meena Pillai", role: "Patient since 2023", image: "https://randomuser.me/api/portraits/women/5.jpg" },
-  { text: "The vaccination service was quick and painless. Kids didn't even cry!", name: "Deepak Nair", role: "Patient since 2022", image: "https://randomuser.me/api/portraits/men/6.jpg" },
-  { text: "Blood test results came in within 24 hours with a detailed explanation. Excellent service.", name: "Kavitha Reddy", role: "Patient since 2021", image: "https://randomuser.me/api/portraits/women/7.jpg" },
-  { text: "Dr. Venkat Rao diagnosed my recurring fever correctly when others couldn't. Recovered in 3 days!", name: "Arjun Singh", role: "Patient since 2023", image: "https://randomuser.me/api/portraits/men/8.jpg" },
-  { text: "Emergency consultation was handled quickly and professionally. Very grateful.", name: "Lakshmi Nair", role: "Patient since 2020", image: "https://randomuser.me/api/portraits/women/9.jpg" },
+  { text: "The doctor was incredibly thorough. Diagnosed my issue in one visit after 3 other doctors missed it.", name: "Priya Sharma", role: "Patient since 2021", color: "from-pink-500 to-rose-500" },
+  { text: "Booked via WhatsApp in 30 seconds. Got confirmed instantly. The whole experience was seamless.", name: "Rahul Mehta", role: "Patient since 2022", color: "from-blue-500 to-indigo-500" },
+  { text: "Very professional clinic. Clean, modern and the staff is incredibly helpful. Best in the city.", name: "Anita Kapoor", role: "Patient since 2020", color: "from-teal-500 to-cyan-500" },
+  { text: "My entire family comes here. The doctor takes time to explain everything clearly. Highly recommend.", name: "Suresh Iyer", role: "Patient since 2019", color: "from-orange-500 to-amber-500" },
+  { text: "After years of visiting different clinics, I finally found one that actually cares.", name: "Meena Pillai", role: "Patient since 2023", color: "from-purple-500 to-violet-500" },
+  { text: "The vaccination service was quick and painless. Kids didn't even cry!", name: "Deepak Nair", role: "Patient since 2022", color: "from-green-500 to-emerald-500" },
+  { text: "Blood test results came in within 24 hours with a detailed explanation. Excellent service.", name: "Kavitha Reddy", role: "Patient since 2021", color: "from-red-500 to-pink-500" },
+  { text: "Dr. Venkat Rao diagnosed my recurring fever correctly when others couldn't. Recovered in 3 days!", name: "Arjun Singh", role: "Patient since 2023", color: "from-sky-500 to-blue-500" },
+  { text: "Emergency consultation was handled quickly and professionally. Very grateful.", name: "Lakshmi Nair", role: "Patient since 2020", color: "from-fuchsia-500 to-purple-500" },
 ];
 
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
 const thirdColumn = testimonials.slice(6, 9);
 
-function TestimonialCard({ text, image, name, role }: { text: string; image: string; name: string; role: string }) {
+function TestimonialCard({ text, name, role, color }: { text: string; name: string; role: string; color: string }) {
+  const initials = name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
   return (
     <div className="p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm max-w-xs w-full shadow-xl">
       <div className="flex gap-1 mb-3">
         {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}
       </div>
-      <p className="text-white/70 text-sm leading-relaxed mb-5">"{text}"</p>
+      <p className="text-white/70 text-sm leading-relaxed mb-5">&ldquo;{text}&rdquo;</p>
       <div className="flex items-center gap-3">
-        <img src={image} alt={name} className="w-10 h-10 rounded-full object-cover border-2 border-teal-400/30" />
+        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${color} flex items-center justify-center flex-shrink-0 text-white text-xs font-bold shadow`}>
+          {initials}
+        </div>
         <div>
           <p className="text-white font-semibold text-sm">{name}</p>
           <p className="text-white/40 text-xs">{role}</p>
@@ -52,7 +55,7 @@ function TestimonialsColumn({ testimonials, duration = 15, className = "" }: {
         {[...Array(2)].fill(0).map((_, idx) => (
           <React.Fragment key={idx}>
             {testimonials.map((t, i) => (
-              <TestimonialCard key={i} {...t} />
+              <TestimonialCard key={i} text={t.text} name={t.name} role={t.role} color={t.color} />
             ))}
           </React.Fragment>
         ))}

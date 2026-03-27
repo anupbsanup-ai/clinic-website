@@ -375,7 +375,7 @@ export default function BookPage() {
       <section className="bg-white border-t border-gray-100 py-10 px-6">
         <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 text-center">
           {[
-            { title: "Safe & Trusted", desc: "All doctors are NABH certified with 10+ years experience." },
+            { title: "Safe & Trusted", desc: `All doctors are NABH certified with ${clinicConfig.doctor.experience}+ years experience.` },
             { title: "Easy Reschedule", desc: "Need to change your time? Message us on WhatsApp anytime." },
             { title: "Free Cancellation", desc: "Cancel up to 2 hours before your slot, no questions asked." },
           ].map((item) => (

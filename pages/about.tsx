@@ -67,7 +67,8 @@ export default function About() {
           <AnimatedSection direction="right">
             <p className="text-teal-600 font-semibold text-sm uppercase tracking-widest mb-2">About the Doctor</p>
             <h2 className="text-4xl font-extrabold text-gray-800 mb-2">{clinicConfig.doctor.name}</h2>
-            <p className="text-blue-700 font-semibold text-lg mb-6">{clinicConfig.doctor.qualifications} — {clinicConfig.doctor.specialty}</p>
+            <p className="text-blue-700 font-semibold text-lg mb-1">{clinicConfig.doctor.qualifications} — {clinicConfig.doctor.specialty}</p>
+            <p className="text-gray-400 text-xs mb-6">Reg. No: {clinicConfig.registrationNumber} · Est. {clinicConfig.established}</p>
 
             <div className="grid grid-cols-3 gap-4 mb-8">
               {[[`${clinicConfig.doctor.experience}+`, "Years Exp."], [clinicConfig.doctor.patients, "Patients"], [clinicConfig.doctor.rating, "Satisfaction"]].map(([v, l]) => (

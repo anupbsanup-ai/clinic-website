@@ -69,6 +69,12 @@ export default function Footer() {
             </li>
             <li className="flex items-start gap-3">
               <svg className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href={`mailto:${clinicConfig.email}`} className="hover:text-white transition break-all">{clinicConfig.email}</a>
+            </li>
+            <li className="flex items-start gap-3">
+              <svg className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               {clinicConfig.hours}
@@ -84,8 +90,25 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-gray-700 pt-6 text-center text-gray-500 text-xs">
-        © {new Date().getFullYear()} {clinicConfig.name}, {clinicConfig.city}. All rights reserved.
+      <div className="border-t border-gray-700 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-xs px-0">
+        <p>© {new Date().getFullYear()} {clinicConfig.name}, {clinicConfig.city}. All rights reserved. · Reg. No: {clinicConfig.registrationNumber}</p>
+        <div className="flex items-center gap-4">
+          {clinicConfig.social.google && (
+            <a href={clinicConfig.social.google} target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Google Business">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 11h8.533c.044.385.067.78.067 1.184 0 5.407-3.621 9.25-8.6 9.25C5.823 21.434 2 17.61 2 12S5.823 2.566 12 2.566c2.67 0 4.9.975 6.61 2.564l-2.686 2.587C14.786 6.676 13.518 6.1 12 6.1c-3.283 0-5.95 2.75-5.95 5.9s2.667 5.9 5.95 5.9c2.553 0 4.396-1.386 5.1-3.4H12v-3.5z"/></svg>
+            </a>
+          )}
+          {clinicConfig.social.facebook && (
+            <a href={clinicConfig.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Facebook">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            </a>
+          )}
+          {clinicConfig.social.instagram && (
+            <a href={clinicConfig.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Instagram">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          )}
+        </div>
       </div>
     </footer>
   );

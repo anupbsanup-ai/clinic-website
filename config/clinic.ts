@@ -16,8 +16,17 @@ export const clinicConfig = {
   phone:      "+91 91649 93469",
   phoneRaw:   "+919164993469",        // for tel: href
   whatsapp:   "919164993469",         // for wa.me/ links
+  email:      "sanjeevaniclinikmalleshwaram@gmail.com",
   address:    "803, 11th Cross Road, Vyalikaval, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003",
   addressShort: "803, 11th Cross, Malleshwaram, Bangalore",
+  emergency:  "For emergencies outside clinic hours, please call 108 (ambulance) or visit the nearest hospital.",
+
+  // ── Social Media ──────────────────────────────────────────────────────────
+  social: {
+    instagram: "",   // e.g. "https://instagram.com/sanjeevani_clinic"
+    facebook:  "",   // e.g. "https://facebook.com/sanjeevaniclinikmalleshwaram"
+    google:    "https://maps.app.goo.gl/your-google-business-link",
+  },
 
   // ── Hours ─────────────────────────────────────────────────────────────────
   hours:      "All Days · 11:00 AM – 5:00 PM",
@@ -34,6 +43,10 @@ export const clinicConfig = {
     { day: "Saturday",  time: "11:00 AM – 5:00 PM", open: true },
     { day: "Sunday",    time: "11:00 AM – 5:00 PM", open: true },
   ],
+
+  // ── Clinic Info ───────────────────────────────────────────────────────────
+  established:        2010,
+  registrationNumber: "KMC-12345",   // Replace with real MCI/KMC registration number
 
   // ── Doctor ────────────────────────────────────────────────────────────────
   doctor: {
@@ -125,7 +138,7 @@ export const waLink = (msg = "I want to book an appointment at " + clinicConfig.
   `https://wa.me/${clinicConfig.whatsapp}?text=${encodeURIComponent(msg)}`;
 
 export const mapEmbed = () =>
-  `https://maps.google.com/maps?q=${encodeURIComponent(clinicConfig.address)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
+  `https://maps.google.com/maps?q=${clinicConfig.seo.geo.lat},${clinicConfig.seo.geo.lng}&t=&z=17&ie=UTF8&iwloc=B&output=embed`;
 
 export const mapLink = () =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinicConfig.address)}`;

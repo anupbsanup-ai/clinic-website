@@ -69,9 +69,14 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* EMERGENCY NOTICE */}
+      <div className="bg-amber-50 border-b border-amber-200 py-3 px-6 text-center">
+        <p className="text-amber-800 text-sm font-medium">⚠️ {clinicConfig.emergency}</p>
+      </div>
+
       {/* CONTACT CARDS */}
       <section className="py-16 px-6 bg-white">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Phone */}
           <div className="group bg-white border border-gray-100 rounded-2xl p-8 shadow hover:shadow-xl transition text-center">
             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-blue-700 transition">
@@ -103,6 +108,20 @@ export default function Contact() {
             >
               Book Appointment
             </a>
+          </div>
+
+          {/* Email */}
+          <div className="group bg-white border border-gray-100 rounded-2xl p-8 shadow hover:shadow-xl transition text-center">
+            <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-purple-600 transition">
+              <svg className="w-8 h-8 text-purple-600 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 className="font-bold text-gray-800 text-xl mb-2">Email Us</h3>
+            <a href={`mailto:${clinicConfig.email}`} className="text-purple-600 font-semibold text-sm hover:underline block mb-1 break-all">
+              {clinicConfig.email}
+            </a>
+            <p className="text-gray-400 text-sm">We reply within 24 hours</p>
           </div>
 
           {/* Location */}
