@@ -260,7 +260,7 @@ export default function Home() {
               <div className="absolute -top-6 -left-6 w-72 h-72 bg-teal-100 rounded-full -z-10" />
               <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-blue-100 rounded-full -z-10" />
               <div className="relative w-full h-[480px] rounded-3xl overflow-hidden shadow-2xl">
-                <Image src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&q=80" alt="Doctor" fill className="object-cover object-top" />
+                <Image src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=700&q=80" alt="Doctor" fill className="object-cover object-top" />
               </div>
               <div className="absolute -bottom-5 -right-4 bg-gradient-to-br from-teal-600 to-blue-700 text-white px-6 py-5 rounded-2xl shadow-2xl text-center">
                 <p className="text-3xl font-extrabold">5K+</p>

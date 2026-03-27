@@ -91,7 +91,7 @@ export default function HalideTopo() {
         >
           {[
             { img: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=80", style: { filter: "grayscale(1) contrast(1.3) brightness(0.45)" } },
-            { img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1200&q=80", style: { filter: "grayscale(1) contrast(1.1) brightness(0.6)", opacity: 0.5, mixBlendMode: "screen" as const } },
+            { img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=1200&q=80", style: { filter: "grayscale(1) contrast(1.1) brightness(0.6)", opacity: 0.5, mixBlendMode: "screen" as const } },
             { img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80", style: { filter: "grayscale(1) contrast(1.3) brightness(0.7)", opacity: 0.35, mixBlendMode: "overlay" as const } },
           ].map((layer, i) => (
             <div
