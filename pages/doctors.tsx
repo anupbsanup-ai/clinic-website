@@ -1,25 +1,14 @@
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { API_URL } from "../lib/api";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import AnimatedSection from "../components/AnimatedSection";
 import { clinicConfig, waLink } from "../config/clinic";
 
-interface Doctor { _id: string; name: string; specialty: string; photo: string; fee: number; experience: number; qualifications: string; bio: string; availableDays: string[]; }
-
 export default function DoctorsPage() {
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
-
-  useEffect(() => {
-    fetch(`${API_URL}/api/doctors`)
-      .then((r) => r.json())
-      .then(setDoctors)
-      .catch(console.error);
-  }, []);
+  const doc = clinicConfig.doctor;
 
   return (
     <>
@@ -42,46 +31,41 @@ export default function DoctorsPage() {
         </div>
       </section>
 
-      {/* Doctor Cards */}
+      {/* Doctor Card */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {doctors.map((doc, i) => (
-              <AnimatedSection key={doc._id} direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="bg-white border border-gray-100 rounded-3xl shadow hover:shadow-xl transition-all group overflow-hidden">
-                  <div className="relative h-64 overflow-hidden">
-                    <Image src={doc.photo} alt={doc.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <span className="inline-block bg-teal-500/90 text-white text-xs font-semibold px-3 py-1 rounded-full">{doc.specialty}</span>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-extrabold text-gray-800 mb-1">{doc.name}</h3>
-                    <p className="text-teal-600 text-sm font-semibold mb-1">{doc.qualifications}</p>
-                    <p className="text-gray-400 text-sm mb-3">{doc.experience} years experience</p>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4">{doc.bio}</p>
-
-                    <div className="flex flex-wrap gap-1 mb-5">
-                      {doc.availableDays.map((day) => (
-                        <span key={day} className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{day.slice(0, 3)}</span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-gray-400 text-xs">Consultation Fee</p>
-                        <p className="text-2xl font-extrabold text-teal-600">₹{doc.fee}</p>
-                      </div>
-                      <Link href="/book"
-                        className="btn-brand text-white font-semibold px-5 py-2.5 rounded-xl text-sm">
-                        Book Now
-                      </Link>
-                    </div>
+          <div className="flex justify-center">
+            <AnimatedSection direction="up">
+              <div className="bg-white border border-gray-100 rounded-3xl shadow hover:shadow-xl transition-all group overflow-hidden max-w-sm w-full">
+                <div className="relative h-64 overflow-hidden">
+                  <Image src={doc.photo} alt={doc.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <span className="inline-block bg-teal-500/90 text-white text-xs font-semibold px-3 py-1 rounded-full">{doc.specialty}</span>
                   </div>
                 </div>
-              </AnimatedSection>
-            ))}
+                <div className="p-6">
+                  <h3 className="text-xl font-extrabold text-gray-800 mb-1">{doc.name}</h3>
+                  <p className="text-teal-600 text-sm font-semibold mb-1">{doc.qualifications}</p>
+                  <p className="text-gray-400 text-sm mb-3">{doc.experience} years experience</p>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">{doc.bio}</p>
+                  <div className="flex flex-wrap gap-1 mb-5">
+                    {doc.tags.map((tag) => (
+                      <span key={tag} className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-gray-400 text-xs">Consultation Fee</p>
+                      <p className="text-2xl font-extrabold text-teal-600">₹{doc.fee}</p>
+                    </div>
+                    <Link href="/book" className="btn-brand text-white font-semibold px-5 py-2.5 rounded-xl text-sm">
+                      Book Now
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
