@@ -57,8 +57,8 @@ export const clinicConfig = {
     patients:       "5K+",
     rating:         "4.9★",
     fee:            300,
-    photo:          "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80",
-    photoAlt:       "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=700&q=80",
+    photo:          "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80",
+    photoAlt:       "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=700&q=80",
     bio:            "With over 15 years of experience in general medicine, Dr. P Venkat Rao is dedicated to providing compassionate and effective healthcare solutions. He specializes in treating common illnesses, managing chronic conditions, and offering preventive healthcare guidance.",
     tags:           ["15 Yrs Experience", "General Medicine", "Diabetes Care", "Family Medicine"],
     skills:         [

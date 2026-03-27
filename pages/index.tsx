@@ -136,7 +136,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-blue-500/20 rounded-3xl blur-2xl scale-110" />
               <div className="relative bg-white/8 backdrop-blur-xl rounded-3xl border border-white/15 p-6 shadow-2xl">
                 <div className="relative w-full h-72 rounded-2xl overflow-hidden mb-5">
-                  <Image src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80" alt="Doctor" fill className="object-cover object-top" />
+                  <Image src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80" alt="Doctor" fill className="object-cover object-top" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <div className="absolute bottom-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow">
                     <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" /> Accepting Patients Today
@@ -260,7 +260,7 @@ export default function Home() {
               <div className="absolute -top-6 -left-6 w-72 h-72 bg-teal-100 rounded-full -z-10" />
               <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-blue-100 rounded-full -z-10" />
               <div className="relative w-full h-[480px] rounded-3xl overflow-hidden shadow-2xl">
-                <Image src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=700&q=80" alt="Doctor" fill className="object-cover object-top" />
+                <Image src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=700&q=80" alt="Doctor" fill className="object-cover object-top" />
               </div>
               <div className="absolute -bottom-5 -right-4 bg-gradient-to-br from-teal-600 to-blue-700 text-white px-6 py-5 rounded-2xl shadow-2xl text-center">
                 <p className="text-3xl font-extrabold">5K+</p>
